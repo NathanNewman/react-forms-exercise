@@ -3,7 +3,7 @@ import Box from "./Box";
 import NewBoxForm from "./NewBoxForm";
 
 const BoxList = () => {
-  const [boxes, updateBoxes] = useState([]);
+  const [boxes, setBoxes] = useState([]);
   const add = (boxObj) => {
     setBoxes((boxes) => [...boxes, boxObj]);
   };

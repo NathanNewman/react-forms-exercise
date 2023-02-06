@@ -3,9 +3,9 @@ import React from "react";
 const Box = ({
   id,
   handleRemove,
-  width = 5,
-  height = 5,
-  backgroundColor = "blue",
+  width = 10,
+  height = 10,
+  backgroundColor = "red",
 }) => {
   const remove = () => handleRemove(id);
   return (
