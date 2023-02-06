@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
-import BoxList from './BoxList'
+import React from "react";
+import "./App.css";
+import BoxList from "./BoxList";
 
 function App() {
   return (
