@@ -4,7 +4,9 @@ exports[`it matches snapshot 1`] = `
 <DocumentFragment>
   <div>
     <div>
-      <form>
+      <form
+        data-testid="add-box-form"
+      >
         <div>
           <label
             for="height"
@@ -45,6 +47,7 @@ exports[`it matches snapshot 1`] = `
           />
         </div>
         <button
+          data-testid="add-box-button"
           id="newBoxButton"
         >
           Add a new box!

@@ -24,7 +24,7 @@ const NewBoxForm = ({ createBox }) => {
   
     return (
       <div>
-        <form onSubmit={gatherInput}>
+        <form onSubmit={gatherInput} data-testid="add-box-form">
           <div>
             <label htmlFor="height">Height</label>
             <input
@@ -55,7 +55,7 @@ const NewBoxForm = ({ createBox }) => {
               id="backgroundColor"
             />
           </div>
-          <button id="newBoxButton">Add a new box!</button>
+          <button id="newBoxButton" data-testid="add-box-button">Add a new box!</button>
         </form>
       </div>
     );
