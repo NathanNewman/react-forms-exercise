@@ -23,9 +23,9 @@ it('creates a new box', () => {
   const backgroundColorInput = getByLabelText('Background Color');
   const addBoxButton = queryByText("Add a new box!");
 
-  fireEvent.change(heightInput, { target: { value: '100px' } });
-  fireEvent.change(widthInput, { target: { value: '200px' } });
-  fireEvent.change(backgroundColorInput, { target: { value: 'red' } });
+  fireEvent.change(heightInput, {value: '100px'});
+  fireEvent.change(widthInput, { value: '200px' });
+  fireEvent.change(backgroundColorInput, { value: 'red' });
   fireEvent.click(addBoxButton);
 
   expect(createBoxMock).toHaveBeenCalledWith({
