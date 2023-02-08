@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Box from "./Box";
+
+afterEach(cleanup);
 
 // smoke test
 it("renders without crashing", function() {
@@ -18,7 +20,7 @@ test("it matches snapshot", () => {
 describe("Box component", () => {
   it("renders a box with the specified width, height, and background color", () => {
     const { container } = render(
-      <Box height={30} width={20} backgroundColor="blue"/>
+      <Box height={30} width={20} backgroundColor="blue" />
     );
     const box = container.querySelector("div[style]");
     expect(box.style.height).toBe("30em");

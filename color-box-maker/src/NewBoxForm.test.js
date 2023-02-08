@@ -1,7 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { render } from '@testing-library/react';
-import NewBoxForm from './NewBoxForm';
+import React from "react";
+import ReactDOM from "react-dom";
+import { render, cleanup, fireEvent } from "@testing-library/react";
+import NewBoxForm from "./NewBoxForm";
+
+afterEach(cleanup);
 
 // smoke test
 it("renders without crashing", function() {
@@ -9,29 +11,31 @@ it("renders without crashing", function() {
 });
 
 // snapshot
-test('it matches snapshot', () => {
-  const {asFragment } = render(<NewBoxForm />);
+test("it matches snapshot", () => {
+  const { asFragment } = render(<NewBoxForm />);
   expect(asFragment()).toMatchSnapshot();
 });
 
-it('creates a new box', () => {
+it("creates a new box", () => {
   const createBoxMock = jest.fn();
-  const { getByLabelText, queryByText } = render(<NewBoxForm />);
+  const { getByLabelText, queryByText } = render(
+    <NewBoxForm createBox={createBoxMock} />
+  );
 
-  const heightInput = getByLabelText('Height');
-  const widthInput = getByLabelText('Width');
-  const backgroundColorInput = getByLabelText('Background Color');
+  const heightInput = getByLabelText("Height");
+  const widthInput = getByLabelText("Width");
+  const backgroundColorInput = getByLabelText("Background Color");
   const addBoxButton = queryByText("Add a new box!");
 
-  fireEvent.change(heightInput, {value: '100px'});
-  fireEvent.change(widthInput, { value: '200px' });
-  fireEvent.change(backgroundColorInput, { value: 'red' });
+  fireEvent.change(heightInput, { target: { value: "100" } });
+  fireEvent.change(widthInput, { target: { value: "200" } });
+  fireEvent.change(backgroundColorInput, { target: { value: "red" } });
   fireEvent.click(addBoxButton);
 
   expect(createBoxMock).toHaveBeenCalledWith({
-    height: '100px',
-    width: '200px',
-    backgroundColor: 'red',
-    id: expect.any(String)
+    height: "100",
+    width: "200",
+    backgroundColor: "red",
+    id: expect.any(String),
   });
 });

@@ -15,6 +15,7 @@ const Box = ({
           height: `${height}em`,
           width: `${width}em`,
           backgroundColor,
+          className: "box",
         }}
       />
       <button onClick={remove}>X</button>

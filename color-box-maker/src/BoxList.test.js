@@ -1,8 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { render, fireEvent } from '@testing-library/react';
-import BoxList from './BoxList';
-import NewBoxForm from './NewBoxForm';
+import React from "react";
+import ReactDOM from "react-dom";
+import { render, fireEvent, cleanup } from "@testing-library/react";
+import { toBeInTheDocument } from "@testing-library/jest-dom";
+import BoxList from "./BoxList";
+
+afterEach(cleanup);
 
 // smoke test
 it("renders without crashing", function() {
@@ -10,31 +12,24 @@ it("renders without crashing", function() {
 });
 
 // snapshot
-test('it matches snapshot', () => {
+test("it matches snapshot", () => {
   const { asFragment } = render(<BoxList />);
   expect(asFragment()).toMatchSnapshot();
 });
 
-// it('creates a new box', () => {
-//   const { getByLabelText, queryByText } = render(<NewBoxForm />);
+it("creates a new box", () => {
+  const { queryByText, getByText } = render(<BoxList />);
+  const addBoxButton = queryByText("Add a new box!");
+  fireEvent.click(addBoxButton);
+  const button = getByText("X");
+  expect(button).toBeInTheDocument();
+});
 
-//   const heightInput = getByLabelText('Height');
-//   const widthInput = getByLabelText('Width');
-//   const backgroundColorInput = getByLabelText('Background Color');
-//   const addBoxButton = queryByText("Add a new box!");
-
-//   fireEvent.change(heightInput, { target: { value: '100px' } });
-//   fireEvent.change(widthInput, { target: { value: '200px' } });
-//   fireEvent.change(backgroundColorInput, { target: { value: 'red' } });
-//   fireEvent.click(addBoxButton);
-
-//   expect(createBoxMock).toHaveBeenCalledWith({
-//     height: '100px',
-//     width: '200px',
-//     backgroundColor: 'red',
-//     id: expect.any(String)
-//   });
-// });
-
-
-
+it("removes a box", () => {
+  const { queryByText } = render(<BoxList />);
+  const addBoxButton = queryByText("Add a new box!");
+  fireEvent.click(addBoxButton);
+  const removeButton = queryByText("X");
+  fireEvent.click(removeButton);
+  expect(removeButton).not.toBeInTheDocument();
+});
